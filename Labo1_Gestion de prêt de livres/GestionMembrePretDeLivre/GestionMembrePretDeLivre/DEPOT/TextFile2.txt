@@ -1,0 +1,51 @@
+﻿CREATE TABLE[dbo].[Emprunts]
+(
+
+   [IdEmprunt] INT  IDENTITY(1, 1) NOT NULL,
+
+ [IdMembre]   INT NOT NULL,
+    [IdLivre] INT NOT NULL,
+    [DateDebut] DATE NOT NULL,
+    [DateRemise]
+DATE NULL,
+    [Retard]     INT NULL,
+    PRIMARY KEY CLUSTERED([IdEmprunt] ASC),
+    FOREIGN KEY([IdLivre]) REFERENCES[dbo].[Livres] ([IdLivre]) ON DELETE CASCADE,
+  FOREIGN KEY([IdMembre]) REFERENCES[dbo].[Membres] ([IdMembre]) ON DELETE CASCADE
+);
+
+CREATE TABLE[dbo].[Livres]
+(
+
+   [IdLivre] INT           IDENTITY(1, 1) NOT NULL,
+
+[IdCategorie]        INT NOT NULL,
+    [Titre] VARCHAR(100) NOT NULL,
+
+[Auteur]             VARCHAR(50)  NOT NULL,
+
+[Emplacement]        VARCHAR(50)  NOT NULL,
+
+[DateAchat]          DATE NOT NULL,
+    [Quantite] INT NOT NULL,
+    [QuantiteDisponible] INT NOT NULL,
+    PRIMARY KEY CLUSTERED([IdLivre] ASC),
+    FOREIGN KEY([IdCategorie]) REFERENCES[dbo].[Categories] ([IdCategorie]) ON DELETE CASCADE
+);
+
+CREATE TABLE[dbo].[Membres]
+(
+
+   [IdMembre] INT           IDENTITY(1, 1) NOT NULL,
+
+[NomComplet]     VARCHAR(50)  NOT NULL,
+
+[Courriel]       VARCHAR(100) NOT NULL,
+
+[Telephone]      VARCHAR(50)  NOT NULL,
+
+[Adresse]        VARCHAR(100) NOT NULL,
+
+[NombreEmprunts] INT NULL,
+PRIMARY KEY CLUSTERED([IdMembre] ASC)
+);

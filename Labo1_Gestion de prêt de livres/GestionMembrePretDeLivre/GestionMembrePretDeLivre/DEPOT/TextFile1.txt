@@ -1,0 +1,36 @@
+﻿@using GestionMembrePretDeLivre.DAL
+@{
+    var context = new LibrairieDBContext();
+    var listeDesMembre = new SelectList(context.Membre.ToList(), "MembreID", "Nom");
+}
+
+@using GestionMembrePretDeLivre.Models
+@{
+    var listeDesLivres = new SelectList(context.Livre.ToList(), "LivreID", "LivreID");
+}
+
+    <!--DropDownList-->
+    <div class="form-group">
+        @*@Html.LabelFor(pro=>pro.Livres, "LivreID", htmlAttributes: new { @class = "control-label col-md-2" })*@
+        @Html.Label("LivreID", "LivreID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("LivreID", listeDesLivres, null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PretID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+	
+        //[HiddenInput(DisplayValue = false)]
+        //[DisplayFormat(DataFormatString = "{0:x6}")]
+		    //[Table("Prets")]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+
+		            //this.Livres = new List<Livre>();
+        //[ForeignKey("Pret")]
+		 [Index(IsUnique = true)]//Pas de doublon dans la BD
+
+
+		 Requettes:
+
+		 select LivreID, Titre from Livre 
+where LivreID NOT IN (select LivreID from Pret)

@@ -1,0 +1,56 @@
+﻿@model GestionMembrePretDeLivre.Models.Pret
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Pret</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Livre.Titre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Livre.Titre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Membre.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Membre.Nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateDuPret)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateDuPret)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateRetour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateRetour)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
