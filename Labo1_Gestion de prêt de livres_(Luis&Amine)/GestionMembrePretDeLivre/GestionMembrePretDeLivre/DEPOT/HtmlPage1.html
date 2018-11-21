@@ -1,0 +1,36 @@
+﻿   @using GestionMembrePretDeLivre.DAL
+    @{
+        var context = new LibrairieDBContext();
+        var membres = context.Membre.ToList();
+
+        foreach (var item in Model)
+        {
+            foreach (GestionMembrePretDeLivre.Models.Membre m in membres)//query all Prets rows
+            {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Livre.Titre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Membre.Nom)
+    </td>
+    <td>
+        @m.Prets.Count().ToString()
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateDuPret)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateRetour)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.PretID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.PretID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.PretID })
+    </td>
+</tr>
+            }
+
+        }
+
+    }

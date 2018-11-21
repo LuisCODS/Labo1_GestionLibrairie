@@ -1,0 +1,96 @@
+﻿@model GestionMembrePretDeLivre.Models.Membre
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Membre</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prenom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prenom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telephone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MembreID })
+</p>
+
+<!-- ========================== AFFICHAGE ASSOCIATION ============================================ -->
+@using GestionMembrePretDeLivre.DAL
+@{
+    LibrairieDBContext dBContext = new LibrairieDBContext();
+    var prets = dBContext.Pret.ToList();
+}
+
+<h3>Livres associés</h3>
+
+<table class="table">
+    <!--COLUMNS  NAME-->
+    <tr>
+        <th>
+            Titre
+        </th>
+        <th>
+            Auteur
+        </th>
+        <th>
+            Categorie
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var p in Model.Prets)
+    {
+        if (p.MembreID == Model.MembreID)
+        {
+            <!--VALUES OF COLUMNS  -->
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => p.Livre.Titre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => p.Livre.Auteur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => p.Livre.Categorie)
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

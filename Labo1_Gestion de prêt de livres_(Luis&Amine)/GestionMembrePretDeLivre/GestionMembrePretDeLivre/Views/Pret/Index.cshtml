@@ -1,0 +1,79 @@
+﻿@model IEnumerable<GestionMembrePretDeLivre.Models.Pret>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List de prêts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Membre.MembreID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Membre.Nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Livre.Titre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateDuPret)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateRetour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Statut)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        TimeSpan ts = item.DateRetour.Subtract(item.DateDuPret);
+        int nbJours = ts.Days;
+
+        if (nbJours > 7)
+        {
+            item.Statut = "En retard";
+        }
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Membre.MembreID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Membre.Nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Livre.Titre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateDuPret)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateRetour)
+        </td>
+        @if (item.Statut == "En retard")
+        {
+            <td style="color:red">
+                @Html.DisplayFor(modelItem => item.Statut)
+            </td>
+        }else        {
+        <td>
+            @Html.DisplayFor(modelItem => item.Statut)
+        </td>
+        }
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.PretID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.PretID })
+        </td>
+    </tr>
+    }
+
+</table>
